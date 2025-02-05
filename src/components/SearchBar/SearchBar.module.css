@@ -1,0 +1,34 @@
+.form {
+  position: relative;
+  width: 30cqw;
+  margin: auto;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(7px);
+  left: 0px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button svg {
+  display: block;
+}
+
+.search {
+  width: 100%;
+  display: block;
+  padding-left: 36px;
+  margin: 0;
+  outline: 0;
+  border-radius: 2px;
+  border: 0;
+}
+
+.header {
+  padding: 5px 0;
+  background-color: #4fa94d;
+}

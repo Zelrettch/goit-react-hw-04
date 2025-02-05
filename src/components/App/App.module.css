@@ -1,0 +1,37 @@
+.loadBtn {
+  background-color: #4fa94d;
+  color: white;
+  border: 0;
+  padding: 7px;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+
+.loadBtn:hover {
+  background-color: #347832;
+}
+
+.app {
+  padding-bottom: 10px;
+}
+
+.loader {
+  padding: 2px 0;
+  justify-content: center;
+}
+
+.modalImage {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: inline-block;
+  border: none;
+  outline: none;
+}
