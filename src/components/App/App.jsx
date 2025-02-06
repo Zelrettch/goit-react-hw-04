@@ -24,7 +24,9 @@ export default function App() {
     <div className={css.app}>
       <SearchBar onSubmit={loadNewQuery} />
       {status == "error" ? (
-        <p>{error}</p>
+        <div className={css.errorContainer}>
+          <p>{error}</p>
+        </div>
       ) : (
         <>
           {!isEmpty && <ImageGallery images={items} openModal={openModal} />}
