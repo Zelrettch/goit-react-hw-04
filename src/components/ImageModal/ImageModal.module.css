@@ -1,0 +1,14 @@
+.modalImage {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  display: inline-block;
+  border: none;
+  outline: none;
+}

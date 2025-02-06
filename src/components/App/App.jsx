@@ -2,20 +2,20 @@ import css from "./App.module.css";
 
 import { Toaster } from "react-hot-toast";
 import SearchBar from "../SearchBar/SearchBar";
-import { useState } from "react";
+import useModal from "./useModal";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import { TailSpin } from "react-loader-spinner";
-import Modal from "react-modal";
+import Loader from "../Loader/Loader";
 import useImages from "./useImages";
-
-Modal.setAppElement("#root");
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "../ImageModal/ImageModal";
 
 export default function App() {
-  const [fullImage, setFullImage] = useState(null);
   const [items, error, status, hasNext, loadNewQuery, loadPage] = useImages();
+  const [fullImage, isModalOpen, openModal, closeModal] = useModal();
 
-  function openModal(id) {
-    setFullImage(items.find((e) => e.id === id));
+  function enableModal(id) {
+    openModal(items.find((e) => e.id === id));
   }
 
   const isEmpty = items.length == 0;
@@ -24,46 +24,18 @@ export default function App() {
     <div className={css.app}>
       <SearchBar onSubmit={loadNewQuery} />
       {status == "error" ? (
-        <div className={css.errorContainer}>
-          <p>{error}</p>
-        </div>
+        <ErrorMessage error={error} />
       ) : (
         <>
-          {!isEmpty && <ImageGallery images={items} openModal={openModal} />}
-          <TailSpin
-            visible={status == "loading"}
-            height="60"
-            width="60"
-            color="#4fa94d"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperClass={css.loader}
-          />
-          {hasNext && status == "loaded" && (
-            <button onClick={loadPage} className={css.loadBtn}>
-              Load more
-            </button>
-          )}
+          {!isEmpty && <ImageGallery images={items} openModal={enableModal} />}
+          {status == "loading" && <Loader />}
+          {hasNext && status == "loaded" && <LoadMoreBtn onClick={loadPage} />}
         </>
       )}
+      {isModalOpen && (
+        <ImageModal onCloseModal={closeModal} image={fullImage} />
+      )}
       <Toaster />
-      <Modal
-        isOpen={fullImage != null}
-        onRequestClose={() => setFullImage(null)}
-        className={css.modalContent}
-        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.7)" } }}
-        preventScroll={true}
-        onAfterOpen={() => (document.body.style.overflow = "hidden")}
-        onAfterClose={() => (document.body.style.overflow = "unset")}
-      >
-        {fullImage && (
-          <img
-            src={fullImage.urls.full}
-            alt={fullImage.description}
-            className={css.modalImage}
-          />
-        )}
-      </Modal>
     </div>
   );
 }

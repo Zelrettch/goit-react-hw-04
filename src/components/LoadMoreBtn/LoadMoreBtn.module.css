@@ -1,0 +1,13 @@
+.loadBtn {
+  background-color: #4fa94d;
+  color: white;
+  border: 0;
+  padding: 7px;
+  margin: auto;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+
+.loadBtn:hover {
+  background-color: #347832;
+}
